@@ -4,3 +4,4 @@ import { RootState } from 'app/helpers/appTypes'
 const selectCats = (state: RootState) => state.cats
 
 export const selectCatImages = createSelector(selectCats, items => items.images)
+export const selectFavourites = createSelector(selectCats, items => items.favourites)

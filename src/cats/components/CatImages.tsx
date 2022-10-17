@@ -2,9 +2,10 @@ import { FC, useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from 'app/helpers/appTypes'
 import { selectCatImages } from 'cats/store/catsSelectors'
-import { fetchCatImages } from 'cats/store/catsThunks'
+import { fetchCatImages, saveImageAsFavourite } from 'cats/store/catsThunks'
 import { SortingOrder } from 'cats/helpers/catsTypes'
-import { Box, Button, CardMedia, CircularProgress, Grid, Typography } from '@mui/material'
+import { Box, Button, CardMedia, Grid, Typography } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
 const CatImages: FC = () => {
     const dispatch = useDispatch<AppDispatch>()
@@ -16,6 +17,12 @@ const CatImages: FC = () => {
         setPage(prevPage => prevPage + 1)
     }
 
+    const handleSaveImageAsFavourite = (imageId: string) => {
+        return () => {
+            dispatch(saveImageAsFavourite(imageId))
+        }
+    }
+
     useEffect(() => {
         dispatch(fetchCatImages({
             limit: 10,
@@ -23,6 +30,11 @@ const CatImages: FC = () => {
             order: SortingOrder.Desc
         }))
     }, [dispatch, page])
+
+    const navigate = useNavigate()
+    const goToFavouritesPage = () => {
+        navigate('favourites')
+    }
 
     return (
         <Box
@@ -36,6 +48,9 @@ const CatImages: FC = () => {
             <Typography variant='h1'>
                 Welcome to our cat lover hub!
             </Typography>
+            <Button variant='contained' onClick={goToFavouritesPage}>
+                Favorites
+            </Button>
             {catImages.length > 0 && (
                 <>
                     <Grid container spacing={3}>
@@ -45,7 +60,20 @@ const CatImages: FC = () => {
                                 xs={4}
                                 key={catImage.id}
                             >
-                                <CardMedia component='img' image={catImage.url} />
+                                <Box sx={{ position: 'relative' }}>
+                                    <CardMedia component='img' image={catImage.url} />
+                                    <Button
+                                        variant='contained'
+                                        onClick={handleSaveImageAsFavourite(catImage.id)}
+                                        sx={{
+                                            position: 'absolute',
+                                            top: '25px',
+                                            right: '25px'
+                                        }}
+                                    >
+                                        Save
+                                    </Button>
+                                </Box>
                             </Grid>
                         ))}
                     </Grid>
