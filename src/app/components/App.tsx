@@ -1,8 +1,26 @@
 import { FC } from 'react'
+import { Box, CssBaseline } from '@mui/material'
+import { Navigate, Route, Routes } from 'react-router-dom'
+import CatImages from 'cats/components/CatImages'
 
 const App: FC = () => {
     return (
-        <></>
+        <>
+            <CssBaseline />
+            <Box
+                sx={{
+                    height: '100vh',
+                    overflowX: 'hidden',
+                    overflowY: 'auto',
+                    padding: '50px'
+                }}
+            >
+                <Routes>
+                    <Route path='/' element={<CatImages />} />
+                    <Route path='*' element={<Navigate to='/' />} />
+                </Routes>
+            </Box>
+        </>
     )
 }
 

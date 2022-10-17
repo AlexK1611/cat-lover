@@ -12,7 +12,7 @@ export const catsSlice = createSlice({
     reducers: {},
     extraReducers: builder => {
         builder.addCase(fetchCatImages.fulfilled, (state, { payload }) => {
-            state.images = payload
+            state.images = [...state.images, ...payload]
         })
     }
 })
