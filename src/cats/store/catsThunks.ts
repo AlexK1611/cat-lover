@@ -7,9 +7,16 @@ export const fetchCatImages = createAsyncThunk(
     async ({ limit, page, order }: CatImagesRequest) => {
         try {
             const response = await api.get('images/search', {
-                params: { limit, page, order }
+                params: { 
+                    limit, 
+                    page: page - 1, 
+                    order 
+                }
             })
-            return response.data
+            return {
+                images: response.data,
+                imageCount: response.headers['pagination-count']
+            } 
         } catch (error) {
             throw error
         }
@@ -45,13 +52,20 @@ export const removeImageFromFavourites = createAsyncThunk(
 export const fetchFavourites = createAsyncThunk(
     'cats/fetchFavourites',
     async ({ limit, page }: FavouritesRequest) => {
-        const response = await api.get('favourites', {
-            params: {
-                limit,
-                page,
-                sub_id: process.env.REACT_APP_USER_ID
+        try {
+            const response = await api.get('favourites', {
+                params: {
+                    limit,
+                    page: page - 1,
+                    sub_id: process.env.REACT_APP_USER_ID
+                }
+            })
+            return {
+                favourites: response.data,
+                favouriteCount: response.headers['pagination-count']
             }
-        })
-        return response.data
+        } catch (error) {
+            throw error
+        }
     }
 )

@@ -20,7 +20,9 @@ export interface FavouriteImage {
 
 export interface CatsState {
     images: CatImage[],
-    favourites: FavouriteImage[]
+    imageCount: number,
+    favourites: FavouriteImage[],
+    favouriteCount: number
 }
 
 export enum SortingOrder {

@@ -1,19 +1,21 @@
-import { FC, useState, useEffect } from 'react'
+import { FC, useState, useEffect, ChangeEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from 'app/helpers/appTypes'
-import { selectFavourites } from 'cats/store/catsSelectors'
+import { selectFavouriteCount, selectFavourites } from 'cats/store/catsSelectors'
 import { removeImageFromFavourites, fetchFavourites } from 'cats/store/catsThunks'
-import { Box, Button, CardMedia, Grid, Typography } from '@mui/material'
+import { Box, Button, CardMedia, CircularProgress, Grid, Pagination, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
 const Favourites: FC = () => {
     const dispatch = useDispatch<AppDispatch>()
     const favourites = useSelector(selectFavourites)
+    const favouriteCount = useSelector(selectFavouriteCount)
 
-    const [page, setPage] = useState(0)
+    const [page, setPage] = useState(1)
+    const [loading, setLoading] = useState(false)
 
-    const loadMoreFavourites = () => {
-        setPage(prevPage => prevPage + 1)
+    const handlePagination = (event: ChangeEvent<unknown>, value: number) => {
+        setPage(value)
     }
 
     const handleRemoveImageFromFavourites = (imageId: number) => {
@@ -23,10 +25,13 @@ const Favourites: FC = () => {
     }
 
     useEffect(() => {
+        setLoading(true)
         dispatch(fetchFavourites({
             limit: 10,
             page
-        }))
+        })).finally(() => {
+            setLoading(false)
+        })
     }, [dispatch, page])
 
     const navigate = useNavigate()
@@ -49,36 +54,42 @@ const Favourites: FC = () => {
             <Button variant='contained' onClick={goToHomePage}>
                 Home
             </Button>
-            {favourites.length > 0 && (
-                <Grid container spacing={3}>
-                    {favourites.map(favourite => (
-                        <Grid
-                            item
-                            xs={4}
-                            key={favourite.id}
-                        >
-                            <Box sx={{ position: 'relative' }}>
-                                <CardMedia component='img' image={favourite.image.url} />
-                                <Button
-                                    variant='contained'
-                                    onClick={handleRemoveImageFromFavourites(favourite.id)}
-                                    sx={{
-                                        position: 'absolute',
-                                        top: '25px',
-                                        right: '25px'
-                                    }}
+            {loading ? (
+                <CircularProgress size={100} />
+            ) : (
+                <>
+                    {favourites.length > 0 && (
+                        <Grid container spacing={3}>
+                            {favourites.map(favourite => (
+                                <Grid
+                                    item
+                                    xs={4}
+                                    key={favourite.id}
                                 >
-                                    Remove
-                                </Button>
-                            </Box>
+                                    <Box sx={{ position: 'relative' }}>
+                                        <CardMedia component='img' image={favourite.image.url} />
+                                        <Button
+                                            variant='contained'
+                                            onClick={handleRemoveImageFromFavourites(favourite.id)}
+                                            sx={{
+                                                position: 'absolute',
+                                                top: '25px',
+                                                right: '25px'
+                                            }}
+                                        >
+                                            Remove
+                                        </Button>
+                                    </Box>
+                                </Grid>
+                            ))}
                         </Grid>
-                    ))}
-                </Grid>
-            )}
-            {favourites.length > 10 && (
-                <Button variant='contained' onClick={loadMoreFavourites}>
-                    Load more
-                </Button>
+                    )}
+                    <Pagination
+                        count={Math.ceil(favouriteCount / 10)}
+                        page={page}
+                        onChange={handlePagination}
+                    />
+                </>
             )}
         </Box>
     )
