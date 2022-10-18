@@ -58,14 +58,34 @@ const CatImages: FC = () => {
                 gap: '50px'
             }}
         >
-            <Typography variant='h1'>
+            <Typography
+                color='#FF90B2'
+                sx={{
+                    fontSize: '75px',
+                    fontWeight: 'bold',
+                    textShadow: '0 0 25px #FF90B2'
+                }}
+            >
                 Welcome to our cat lover hub!
             </Typography>
-            <Button variant='contained' onClick={goToFavouritesPage}>
-                Favorites
+            <Button
+                variant='contained'
+                onClick={goToFavouritesPage}
+                sx={{
+                    backgroundColor: '#FF90B2',
+                    color: '#FFFFFF',
+                    fontSize: '15px',
+                    fontWeight: 'bold',
+                    padding: '10px 20px',
+                    '&:hover': {
+                        backgroundColor: '#FFAAC4'
+                    }
+                }}
+            >
+                Favourites
             </Button>
             {loading ? (
-                <CircularProgress size={100} />
+                <CircularProgress size={100} sx={{ color: '#FF90B2' }} />
             ) : (
                 <>
                     {catImages.length > 0 && (
@@ -73,7 +93,11 @@ const CatImages: FC = () => {
                             {catImages.map(catImage => (
                                 <Grid item xs={4} key={catImage.id}>
                                     <Box sx={{ position: 'relative' }}>
-                                        <CardMedia component='img' image={catImage.url} />
+                                        <CardMedia
+                                            component='img'
+                                            image={catImage.url}
+                                            sx={{ border: '10px solid #FF90B2', borderRadius: '25px' }}
+                                        />
                                         <Button
                                             variant='contained'
                                             onClick={handleSaveImageAsFavourite(catImage.id)}
@@ -94,6 +118,11 @@ const CatImages: FC = () => {
                         count={Math.ceil(catImageCount / 10)}
                         page={page}
                         onChange={handlePagination}
+                        sx={{
+                            backgroundColor: '#FF90B2',
+                            boxShadow: '0px 0px 10px 10px #FF90B2',
+                            borderRadius: '25px'
+                        }}
                     />
                 </>
             )}
