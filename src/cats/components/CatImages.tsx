@@ -3,17 +3,17 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { AppDispatch } from 'app/helpers/appTypes'
 import { selectCatImageCount, selectCatImages } from 'cats/store/catsSelectors'
-import { fetchCatImages, saveImageAsFavourite } from 'cats/store/catsThunks'
+import { fetchCatImages } from 'cats/store/catsThunks'
 import { SortingOrder } from 'cats/helpers/catsTypes'
 import {
     Box,
     Button,
-    CardMedia,
     CircularProgress,
     Grid,
     Pagination,
     Typography
 } from '@mui/material'
+import CatItem from 'cats/components/CatItem'
 
 const CatImages: FC = () => {
     const dispatch = useDispatch<AppDispatch>()
@@ -25,12 +25,6 @@ const CatImages: FC = () => {
 
     const handlePagination = (event: ChangeEvent<unknown>, value: number) => {
         setPage(value)
-    }
-
-    const handleSaveImageAsFavourite = (imageId: string) => {
-        return () => {
-            dispatch(saveImageAsFavourite(imageId))
-        }
     }
 
     useEffect(() => {
@@ -92,24 +86,11 @@ const CatImages: FC = () => {
                         <Grid container spacing={3}>
                             {catImages.map(catImage => (
                                 <Grid item xs={4} key={catImage.id}>
-                                    <Box sx={{ position: 'relative' }}>
-                                        <CardMedia
-                                            component='img'
-                                            image={catImage.url}
-                                            sx={{ border: '10px solid #FF90B2', borderRadius: '25px' }}
-                                        />
-                                        <Button
-                                            variant='contained'
-                                            onClick={handleSaveImageAsFavourite(catImage.id)}
-                                            sx={{
-                                                position: 'absolute',
-                                                top: '25px',
-                                                right: '25px'
-                                            }}
-                                        >
-                                            Save
-                                        </Button>
-                                    </Box>
+                                    <CatItem
+                                        image={catImage.url}
+                                        imageId={catImage.id}
+                                        type='image'
+                                    />
                                 </Grid>
                             ))}
                         </Grid>

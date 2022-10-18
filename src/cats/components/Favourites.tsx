@@ -2,10 +2,18 @@ import { FC, useState, useEffect, ChangeEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from 'app/helpers/appTypes'
 import { selectFavouriteCount, selectFavourites } from 'cats/store/catsSelectors'
-import { removeImageFromFavourites, fetchFavourites } from 'cats/store/catsThunks'
-import { Box, Button, CardMedia, CircularProgress, Grid, IconButton, Pagination, Typography } from '@mui/material'
+import { fetchFavourites } from 'cats/store/catsThunks'
+import {
+    Box,
+    CircularProgress,
+    Grid,
+    IconButton,
+    Pagination,
+    Typography
+} from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import { useNavigate } from 'react-router-dom'
+import CatItem from 'cats/components/CatItem'
 
 const Favourites: FC = () => {
     const dispatch = useDispatch<AppDispatch>()
@@ -17,12 +25,6 @@ const Favourites: FC = () => {
 
     const handlePagination = (event: ChangeEvent<unknown>, value: number) => {
         setPage(value)
-    }
-
-    const handleRemoveImageFromFavourites = (imageId: number) => {
-        return () => {
-            dispatch(removeImageFromFavourites(imageId))
-        }
     }
 
     useEffect(() => {
@@ -84,38 +86,27 @@ const Favourites: FC = () => {
                         <Grid container spacing={3}>
                             {favourites.map(favourite => (
                                 <Grid item xs={4} key={favourite.id}>
-                                    <Box sx={{ position: 'relative' }}>
-                                        <CardMedia
-                                            component='img'
-                                            image={favourite.image.url}
-                                            sx={{ border: '10px solid #FF90B2', borderRadius: '25px' }}
-                                        />
-                                        <Button
-                                            variant='contained'
-                                            onClick={handleRemoveImageFromFavourites(favourite.id)}
-                                            sx={{
-                                                position: 'absolute',
-                                                top: '25px',
-                                                right: '25px'
-                                            }}
-                                        >
-                                            Remove
-                                        </Button>
-                                    </Box>
+                                    <CatItem
+                                        image={favourite.image.url}
+                                        imageId={favourite.id}
+                                        type='favourite'
+                                    />
                                 </Grid>
                             ))}
                         </Grid>
                     )}
-                    <Pagination
-                        count={Math.ceil(favouriteCount / 10)}
-                        page={page}
-                        onChange={handlePagination}
-                        sx={{
-                            backgroundColor: '#FF90B2',
-                            boxShadow: '0px 0px 10px 10px #FF90B2',
-                            borderRadius: '25px'
-                        }}
-                    />
+                    {favourites.length > 0 && (
+                        <Pagination
+                            count={Math.ceil(favouriteCount / 10)}
+                            page={page}
+                            onChange={handlePagination}
+                            sx={{
+                                backgroundColor: '#FF90B2',
+                                boxShadow: '0px 0px 10px 10px #FF90B2',
+                                borderRadius: '25px'
+                            }}
+                        />
+                    )}
                 </>
             )}
         </Box>
