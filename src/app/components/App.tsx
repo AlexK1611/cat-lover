@@ -6,6 +6,7 @@ import CatImages from 'cats/components/CatImages'
 import Breeds from 'cats/components/Breeds'
 import Favourites from 'cats/components/Favourites'
 import AppBackground from 'assets/images/app-background.jpg'
+import { AppRoutes } from 'app/helpers/appTypes'
 
 export const appTheme = createTheme({
     palette: {
@@ -44,10 +45,10 @@ const App: FC = () => {
                 }}
             >
                 <Routes>
-                    <Route path='/' element={<CatImages />} />
-                    <Route path='/breeds' element={<Breeds />} />
-                    <Route path='/favourites' element={<Favourites />} />
-                    <Route path='*' element={<Navigate to='/' />} />
+                    <Route path={AppRoutes.Main} element={<CatImages />} />
+                    <Route path={AppRoutes.Breeds} element={<Breeds />} />
+                    <Route path={AppRoutes.Favourites} element={<Favourites />} />
+                    <Route path='*' element={<Navigate to={AppRoutes.Main} />} />
                 </Routes>
             </Box>
         </ThemeProvider>

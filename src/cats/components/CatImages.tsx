@@ -13,7 +13,7 @@ import {
     Pagination,
     Typography
 } from '@mui/material'
-import CatItem from 'cats/components/CatItem'
+import CatItem from 'cats/ui/CatItem'
 import { appTheme } from 'app/components/App'
 
 const CatImages: FC = () => {

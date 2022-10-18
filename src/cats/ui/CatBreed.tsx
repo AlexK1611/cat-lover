@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { Box, Stack, Typography } from '@mui/material'
-import StarRating from 'cats/components/StarRating'
+import StarRating from 'cats/ui/StarRating'
 import { appTheme } from 'app/components/App'
 
 interface CatBreedProps {

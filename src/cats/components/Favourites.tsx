@@ -7,13 +7,11 @@ import {
     Box,
     CircularProgress,
     Grid,
-    IconButton,
     Pagination,
     Typography
 } from '@mui/material'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import { useNavigate } from 'react-router-dom'
-import CatItem from 'cats/components/CatItem'
+import CatItem from 'cats/ui/CatItem'
+import MainPageButton from 'cats/ui/MainPageButton'
 import { appTheme } from 'app/components/App'
 
 const Favourites: FC = () => {
@@ -38,11 +36,6 @@ const Favourites: FC = () => {
         })
     }, [dispatch, page])
 
-    const navigate = useNavigate()
-    const goToHomePage = () => {
-        navigate('/')
-    }
-
     return (
         <Box
             sx={{
@@ -53,19 +46,7 @@ const Favourites: FC = () => {
                 gap: '50px'
             }}
         >
-            <IconButton
-                onClick={goToHomePage}
-                sx={{
-                    position: 'absolute',
-                    top: '0',
-                    left: '0',
-                    width: '40px',
-                    height: '40px',
-                    backgroundColor: appTheme.palette.primary.main,
-                }}
-            >
-                <ArrowBackIcon />
-            </IconButton>
+            <MainPageButton />
             <Typography variant='h1' color='primary'>
                 You have such lovely favourites!
             </Typography>

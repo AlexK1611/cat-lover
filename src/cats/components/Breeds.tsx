@@ -1,6 +1,5 @@
 import { FC, useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import { AppDispatch } from 'app/helpers/appTypes'
 import { selectBreeds, selectSelectedBreed } from 'cats/store/catsSelectors'
 import { fetchBreeds, fetchSelectedBreed } from 'cats/store/catsThunks'
@@ -8,15 +7,14 @@ import {
     Box,
     CircularProgress,
     FormControl,
-    IconButton,
     InputLabel,
     MenuItem,
     Select,
     Typography
 } from '@mui/material'
 import { SelectChangeEvent } from '@mui/material/Select'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
-import CatBreed from 'cats/components/CatBreed'
+import CatBreed from 'cats/ui/CatBreed'
+import MainPageButton from 'cats/ui/MainPageButton'
 import { appTheme } from 'app/components/App'
 
 const Breeds: FC = () => {
@@ -49,11 +47,6 @@ const Breeds: FC = () => {
         }
     }, [breed])
 
-    const navigate = useNavigate()
-    const goToHomePage = () => {
-        navigate('/')
-    }
-
     return (
         <Box
             sx={{
@@ -64,19 +57,7 @@ const Breeds: FC = () => {
                 gap: '50px'
             }}
         >
-            <IconButton
-                onClick={goToHomePage}
-                sx={{
-                    position: 'absolute',
-                    top: '0',
-                    left: '0',
-                    width: '40px',
-                    height: '40px',
-                    backgroundColor: appTheme.palette.primary.main
-                }}
-            >
-                <ArrowBackIcon />
-            </IconButton>
+            <MainPageButton />
             <Typography color='primary' variant='h1'>
                 There are so many wonderful breeds!
             </Typography>
