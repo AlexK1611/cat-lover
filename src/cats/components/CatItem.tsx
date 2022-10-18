@@ -37,7 +37,7 @@ const CatItem: FC<CatItemProps> = ({ image, imageId, type }) => {
                 position: 'relative',
                 '@keyframes fade-appearance': {
                     '0%': { opacity: 0 },
-                    '1000%': { opacity: 1 }
+                    '100%': { opacity: 1 }
                 },
                 animationDuration: '0.5s',
                 animationName: 'fade-appearance'
