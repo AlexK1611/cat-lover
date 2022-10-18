@@ -1,22 +1,27 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { CatImagesRequest, FavouritesRequest } from 'cats/helpers/catsTypes'
+import {
+    CatImagesRequest,
+    CatImagesResponse,
+    FavouritesRequest,
+    FavouritesResponse
+} from 'cats/helpers/catsTypes'
 import { api } from 'config/api'
 
 export const fetchCatImages = createAsyncThunk(
     'cats/fetchImages',
-    async ({ limit, page, order }: CatImagesRequest) => {
+    async ({ limit, page, order }: CatImagesRequest): Promise<CatImagesResponse> => {
         try {
             const response = await api.get('images/search', {
-                params: { 
-                    limit, 
-                    page: page - 1, 
-                    order 
+                params: {
+                    limit,
+                    page: page - 1,
+                    order
                 }
             })
             return {
                 images: response.data,
                 imageCount: response.headers['pagination-count']
-            } 
+            }
         } catch (error) {
             throw error
         }
@@ -25,7 +30,7 @@ export const fetchCatImages = createAsyncThunk(
 
 export const saveImageAsFavourite = createAsyncThunk(
     'cats/saveAsFavourite',
-    async (imageId: string) => {
+    async (imageId: string): Promise<void> => {
         try {
             await api.post('favourites', {
                 image_id: imageId,
@@ -39,7 +44,7 @@ export const saveImageAsFavourite = createAsyncThunk(
 
 export const removeImageFromFavourites = createAsyncThunk(
     'cats/removeFromFavourites',
-    async (imageId: number) => {
+    async (imageId: number): Promise<number> => {
         try {
             await api.delete(`favourites/${imageId}`)
             return imageId
@@ -51,7 +56,7 @@ export const removeImageFromFavourites = createAsyncThunk(
 
 export const fetchFavourites = createAsyncThunk(
     'cats/fetchFavourites',
-    async ({ limit, page }: FavouritesRequest) => {
+    async ({ limit, page }: FavouritesRequest): Promise<FavouritesResponse> => {
         try {
             const response = await api.get('favourites', {
                 params: {

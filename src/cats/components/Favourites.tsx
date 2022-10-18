@@ -20,8 +20,8 @@ const Favourites: FC = () => {
     const favourites = useSelector(selectFavourites)
     const favouriteCount = useSelector(selectFavouriteCount)
 
-    const [page, setPage] = useState(1)
-    const [loading, setLoading] = useState(false)
+    const [page, setPage] = useState<number>(1)
+    const [loading, setLoading] = useState<boolean>(false)
 
     const handlePagination = (event: ChangeEvent<unknown>, value: number) => {
         setPage(value)

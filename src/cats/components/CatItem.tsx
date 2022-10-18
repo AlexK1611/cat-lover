@@ -15,7 +15,7 @@ interface CatItemProps {
 const CatItem: FC<CatItemProps> = ({ image, imageId, type }) => {
     const dispatch = useDispatch<AppDispatch>()
 
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState<boolean>(false)
 
     const handleSaveImageAsFavourite = () => {
         setLoading(true)

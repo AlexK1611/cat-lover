@@ -36,7 +36,17 @@ export interface CatImagesRequest {
     order: SortingOrder
 }
 
+export interface CatImagesResponse {
+    images: CatImage[],
+    imageCount: string | undefined
+}
+
 export interface FavouritesRequest {
     limit: number,
     page: number
+}
+
+export interface FavouritesResponse {
+    favourites: FavouriteImage[],
+    favouriteCount: string | undefined
 }
