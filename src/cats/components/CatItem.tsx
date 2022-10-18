@@ -5,6 +5,7 @@ import { saveImageAsFavourite, removeImageFromFavourites } from 'cats/store/cats
 import { Box, CardMedia, CircularProgress, IconButton } from '@mui/material'
 import StarIcon from '@mui/icons-material/Star'
 import DeleteIcon from '@mui/icons-material/Delete'
+import { appTheme } from 'app/components/App'
 
 interface CatItemProps {
     image: string,
@@ -47,7 +48,7 @@ const CatItem: FC<CatItemProps> = ({ image, imageId, type }) => {
                 component='img'
                 image={image}
                 sx={{
-                    border: '10px solid #FF90B2',
+                    border: `10px solid ${appTheme.palette.primary.main}`,
                     borderRadius: '25px'
                 }}
             />
@@ -60,14 +61,11 @@ const CatItem: FC<CatItemProps> = ({ image, imageId, type }) => {
                         right: '25px',
                         width: '50px',
                         height: '50px',
-                        backgroundColor: '#FF90B2',
-                        '&:hover': {
-                            backgroundColor: '#FFAAC4'
-                        }
+                        backgroundColor: appTheme.palette.primary.main
                     }}
                 >
                     {loading ? (
-                        <CircularProgress size={25} sx={{ color: '#FFFFFF' }} />
+                        <CircularProgress size={25} color='info' />
                     ) : (
                         <StarIcon />
                     )}
@@ -82,14 +80,11 @@ const CatItem: FC<CatItemProps> = ({ image, imageId, type }) => {
                         right: '25px',
                         width: '50px',
                         height: '50px',
-                        backgroundColor: '#FF90B2',
-                        '&:hover': {
-                            backgroundColor: '#FFAAC4'
-                        }
+                        backgroundColor: appTheme.palette.primary.main
                     }}
                 >
                     {loading ? (
-                        <CircularProgress size={25} sx={{ color: '#FFFFFF' }} />
+                        <CircularProgress size={25} color='info' />
                     ) : (
                         <DeleteIcon />
                     )}

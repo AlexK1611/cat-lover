@@ -14,6 +14,7 @@ import {
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import { useNavigate } from 'react-router-dom'
 import CatItem from 'cats/components/CatItem'
+import { appTheme } from 'app/components/App'
 
 const Favourites: FC = () => {
     const dispatch = useDispatch<AppDispatch>()
@@ -60,26 +61,16 @@ const Favourites: FC = () => {
                     left: '0',
                     width: '40px',
                     height: '40px',
-                    backgroundColor: '#FF90B2',
-                    '&:hover': {
-                        backgroundColor: '#FFAAC4'
-                    }
+                    backgroundColor: appTheme.palette.primary.main,
                 }}
             >
                 <ArrowBackIcon />
             </IconButton>
-            <Typography
-                color='#FF90B2'
-                sx={{
-                    fontSize: '75px',
-                    fontWeight: 'bold',
-                    textShadow: '0 0 25px #FF90B2'
-                }}
-            >
+            <Typography variant='h1' color='primary'>
                 You have such lovely favourites!
             </Typography>
             {loading ? (
-                <CircularProgress size={100} sx={{ color: '#FF90B2' }} />
+                <CircularProgress size={100} color='primary' />
             ) : (
                 <>
                     {favourites.length > 0 && (
@@ -101,8 +92,7 @@ const Favourites: FC = () => {
                             page={page}
                             onChange={handlePagination}
                             sx={{
-                                backgroundColor: '#FF90B2',
-                                boxShadow: '0px 0px 10px 10px #FF90B2',
+                                backgroundColor: appTheme.palette.primary.main,
                                 borderRadius: '25px'
                             }}
                         />

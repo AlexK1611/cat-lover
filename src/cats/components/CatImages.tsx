@@ -14,6 +14,7 @@ import {
     Typography
 } from '@mui/material'
 import CatItem from 'cats/components/CatItem'
+import { appTheme } from 'app/components/App'
 
 const CatImages: FC = () => {
     const dispatch = useDispatch<AppDispatch>()
@@ -39,6 +40,9 @@ const CatImages: FC = () => {
     }, [dispatch, page])
 
     const navigate = useNavigate()
+    const goToBreedsPage = () => {
+        navigate('breeds')
+    }
     const goToFavouritesPage = () => {
         navigate('favourites')
     }
@@ -52,34 +56,30 @@ const CatImages: FC = () => {
                 gap: '50px'
             }}
         >
-            <Typography
-                color='#FF90B2'
-                sx={{
-                    fontSize: '75px',
-                    fontWeight: 'bold',
-                    textShadow: '0 0 25px #FF90B2'
-                }}
-            >
+            <Typography variant='h1' color='primary'>
                 Welcome to our cat lover hub!
             </Typography>
-            <Button
-                variant='contained'
-                onClick={goToFavouritesPage}
-                sx={{
-                    backgroundColor: '#FF90B2',
-                    color: '#FFFFFF',
-                    fontSize: '15px',
-                    fontWeight: 'bold',
-                    padding: '10px 20px',
-                    '&:hover': {
-                        backgroundColor: '#FFAAC4'
-                    }
-                }}
-            >
-                Favourites
-            </Button>
+            <Box sx={{ display: 'flex', gap: '10px' }}>
+                <Button
+                    variant='contained'
+                    color='primary'
+                    onClick={goToBreedsPage}
+                    sx={{ flex: 1, color: appTheme.palette.info.main }}
+                >
+                    Breeds
+                </Button>
+                <Button
+                    variant='contained'
+                    color='primary'
+                    onClick={goToFavouritesPage}
+                    sx={{ flex: 1, color: appTheme.palette.info.main }}
+                >
+                    Favourites
+                </Button>
+            </Box>
+
             {loading ? (
-                <CircularProgress size={100} sx={{ color: '#FF90B2' }} />
+                <CircularProgress size={100} color='primary' />
             ) : (
                 <>
                     {catImages.length > 0 && (
@@ -100,8 +100,7 @@ const CatImages: FC = () => {
                         page={page}
                         onChange={handlePagination}
                         sx={{
-                            backgroundColor: '#FF90B2',
-                            boxShadow: '0px 0px 10px 10px #FF90B2',
+                            backgroundColor: appTheme.palette.primary.main,
                             borderRadius: '25px'
                         }}
                     />
