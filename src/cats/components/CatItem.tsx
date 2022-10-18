@@ -32,7 +32,17 @@ const CatItem: FC<CatItemProps> = ({ image, imageId, type }) => {
     }
 
     return (
-        <Box sx={{ position: 'relative' }}>
+        <Box
+            sx={{
+                position: 'relative',
+                '@keyframes fade-appearance': {
+                    '0%': { opacity: 0 },
+                    '1000%': { opacity: 1 }
+                },
+                animationDuration: '0.5s',
+                animationName: 'fade-appearance'
+            }}
+        >
             <CardMedia
                 component='img'
                 image={image}
@@ -57,7 +67,7 @@ const CatItem: FC<CatItemProps> = ({ image, imageId, type }) => {
                     }}
                 >
                     {loading ? (
-                        <CircularProgress size={25} sx={{ color: '#FFFFFF'}} />
+                        <CircularProgress size={25} sx={{ color: '#FFFFFF' }} />
                     ) : (
                         <StarIcon />
                     )}
@@ -79,7 +89,7 @@ const CatItem: FC<CatItemProps> = ({ image, imageId, type }) => {
                     }}
                 >
                     {loading ? (
-                        <CircularProgress size={25} sx={{ color: '#FFFFFF'}} />
+                        <CircularProgress size={25} sx={{ color: '#FFFFFF' }} />
                     ) : (
                         <DeleteIcon />
                     )}
