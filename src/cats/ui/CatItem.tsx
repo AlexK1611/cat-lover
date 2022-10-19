@@ -46,6 +46,7 @@ const CatItem: FC<CatItemProps> = ({ image, imageId, type }) => {
         >
             <CardMedia
                 component='img'
+                loading='lazy'
                 image={image}
                 sx={{
                     border: `10px solid ${appTheme.palette.primary.main}`,
