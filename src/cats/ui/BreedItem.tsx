@@ -2,40 +2,28 @@ import { FC } from 'react'
 import { Box, Stack, Typography } from '@mui/material'
 import StarRating from 'cats/ui/StarRating'
 import { appTheme } from 'app/components/App'
+import { CatBreed } from 'cats/helpers/catsTypes'
 
-interface CatBreedProps {
-    name: string,
-    description: string,
-    adaptability: number,
-    affectionLevel: number,
-    childFriendly: number,
-    dogFriendly: number
-    energyLevel: number,
-    grooming: number,
-    healthIssues: number,
-    intelligence: number,
-    sheddingLevel: number,
-    socialNeeds: number,
-    strangerFriendly: number,
-    vocalisation: number
+interface BreedItemProps {
+    breed: Pick<CatBreed,
+        'name' |
+        'description' |
+        'adaptability' |
+        'affection_level' |
+        'child_friendly' |
+        'dog_friendly' |
+        'energy_level' |
+        'grooming' |
+        'health_issues' |
+        'intelligence' |
+        'shedding_level' |
+        'social_needs' |
+        'stranger_friendly' |
+        'vocalisation'
+    >
 }
 
-const CatBreed: FC<CatBreedProps> = ({
-    name,
-    description,
-    adaptability,
-    affectionLevel,
-    childFriendly,
-    dogFriendly,
-    energyLevel,
-    grooming,
-    healthIssues,
-    intelligence,
-    sheddingLevel,
-    socialNeeds,
-    strangerFriendly,
-    vocalisation
-}) => {
+const BreedItem: FC<BreedItemProps> = ({ breed }) => {
     return (
         <Box
             sx={{
@@ -51,110 +39,110 @@ const CatBreed: FC<CatBreedProps> = ({
                 maxWidth: '50%'
             }}
         >
-            {name && (
+            {breed.name && (
                 <Typography color='info' variant='h2'>
-                    {name}
+                    {breed.name}
                 </Typography>
             )}
-            {description && <Typography>{description}</Typography>}
-            {adaptability && (
+            {breed.description && <Typography>{breed.description}</Typography>}
+            {breed.adaptability && (
                 <Stack spacing={1} direction='row'>
                     <Typography variant='subtitle1'>
                         Adaptability:
                     </Typography>
-                    <StarRating rating={adaptability} />
+                    <StarRating rating={breed.adaptability} />
                 </Stack>
             )}
-            {affectionLevel && (
+            {breed.affection_level && (
                 <Stack spacing={1} direction='row'>
                     <Typography variant='subtitle1'>
                         Affection Level:
                     </Typography>
-                    <StarRating rating={affectionLevel} />
+                    <StarRating rating={breed.affection_level} />
                 </Stack>
             )}
-            {childFriendly && (
+            {breed.child_friendly && (
                 <Stack spacing={1} direction='row'>
                     <Typography variant='subtitle1'>
                         Child Friendly:
                     </Typography>
-                    <StarRating rating={childFriendly} />
+                    <StarRating rating={breed.child_friendly} />
                 </Stack>
             )}
-            {dogFriendly && (
+            {breed.dog_friendly && (
                 <Stack spacing={1} direction='row'>
                     <Typography variant='subtitle1'>
                         Dog Friendly:
                     </Typography>
-                    <StarRating rating={dogFriendly} />
+                    <StarRating rating={breed.dog_friendly} />
                 </Stack>
             )}
-            {energyLevel && (
+            {breed.energy_level && (
                 <Stack spacing={1} direction='row'>
                     <Typography variant='subtitle1'>
                         Energy Level:
                     </Typography>
-                    <StarRating rating={energyLevel} />
+                    <StarRating rating={breed.energy_level} />
                 </Stack>
             )}
-            {grooming && (
+            {breed.grooming && (
                 <Stack spacing={1} direction='row'>
                     <Typography variant='subtitle1'>
                         Grooming:
                     </Typography>
-                    <StarRating rating={grooming} />
+                    <StarRating rating={breed.grooming} />
                 </Stack>
             )}
-            {healthIssues && (
+            {breed.health_issues && (
                 <Stack spacing={1} direction='row'>
                     <Typography variant='subtitle1'>
                         Health Issues:
                     </Typography>
-                    <StarRating rating={healthIssues} />
+                    <StarRating rating={breed.health_issues} />
                 </Stack>
             )}
-            {intelligence && (
+            {breed.intelligence && (
                 <Stack spacing={1} direction='row'>
                     <Typography variant='subtitle1'>
                         Intelligence:
                     </Typography>
-                    <StarRating rating={intelligence} />
+                    <StarRating rating={breed.intelligence} />
                 </Stack>
             )}
-            {sheddingLevel && (
+            {breed.shedding_level && (
                 <Stack spacing={1} direction='row'>
                     <Typography variant='subtitle1'>
                         Shedding Level:
                     </Typography>
-                    <StarRating rating={sheddingLevel} />
+                    <StarRating rating={breed.shedding_level} />
                 </Stack>
             )}
-            {socialNeeds && (
+            {breed.social_needs && (
                 <Stack spacing={1} direction='row'>
                     <Typography variant='subtitle1'>
                         Social Needs:
                     </Typography>
-                    <StarRating rating={socialNeeds} />
+                    <StarRating rating={breed.social_needs} />
                 </Stack>
             )}
-            {strangerFriendly && (
+            {breed.stranger_friendly && (
                 <Stack spacing={1} direction='row'>
                     <Typography variant='subtitle1'>
                         Stranger Friendly:
                     </Typography>
-                    <StarRating rating={strangerFriendly} />
+                    <StarRating rating={breed.stranger_friendly} />
                 </Stack>
             )}
-            {vocalisation && (
+            {breed.vocalisation && (
                 <Stack spacing={1} direction='row'>
                     <Typography variant='subtitle1'>
                         Vocalisation:
                     </Typography>
-                    <StarRating rating={vocalisation} />
+                    <StarRating rating={breed.vocalisation} />
                 </Stack>
             )}
         </Box>
     )
 }
 
-export default CatBreed
+export default BreedItem

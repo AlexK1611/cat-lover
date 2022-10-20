@@ -13,7 +13,7 @@ import {
     Typography
 } from '@mui/material'
 import { SelectChangeEvent } from '@mui/material/Select'
-import CatBreed from 'cats/ui/CatBreed'
+import BreedItem from 'cats/ui/BreedItem'
 import MainPageButton from 'cats/ui/MainPageButton'
 import { appTheme } from 'app/components/App'
 
@@ -45,7 +45,7 @@ const Breeds: FC = () => {
                 setLoading(false)
             })
         }
-    }, [breed])
+    }, [dispatch, breed])
 
     return (
         <Box
@@ -83,22 +83,7 @@ const Breeds: FC = () => {
                         </FormControl>
                     )}
                     {selectedBreed && (
-                        <CatBreed
-                            name={selectedBreed.name}
-                            description={selectedBreed.description}
-                            adaptability={selectedBreed.adaptability}
-                            affectionLevel={selectedBreed.affection_level}
-                            childFriendly={selectedBreed.child_friendly}
-                            dogFriendly={selectedBreed.dog_friendly}
-                            energyLevel={selectedBreed.energy_level}
-                            grooming={selectedBreed.grooming}
-                            healthIssues={selectedBreed.health_issues}
-                            intelligence={selectedBreed.intelligence}
-                            sheddingLevel={selectedBreed.shedding_level}
-                            socialNeeds={selectedBreed.social_needs}
-                            strangerFriendly={selectedBreed.stranger_friendly}
-                            vocalisation={selectedBreed.vocalisation}
-                        />
+                        <BreedItem breed={selectedBreed} />
                     )}
                 </>
             )}
