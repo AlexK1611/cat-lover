@@ -1,8 +1,12 @@
 import { FC, useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from 'app/helpers/appTypes'
-import { selectBreeds, selectSelectedBreed } from 'cats/store/catsSelectors'
-import { fetchBreeds, fetchSelectedBreed } from 'cats/store/catsThunks'
+import {
+    selectBreedsLoading,
+    selectCatBreeds,
+    selectSelectedBreed
+} from 'breeds/store/breedsSelectors'
+import { fetchBreeds, fetchSelectedBreed } from 'breeds/store/breetsThunks'
 import {
     Box,
     CircularProgress,
@@ -13,13 +17,14 @@ import {
     Typography
 } from '@mui/material'
 import { SelectChangeEvent } from '@mui/material/Select'
-import BreedItem from 'cats/ui/BreedItem'
+import BreedItem from 'breeds/ui/BreedItem'
 import MainPageButton from 'cats/ui/MainPageButton'
 import { appTheme } from 'app/components/App'
 
 const Breeds: FC = () => {
     const dispatch = useDispatch<AppDispatch>()
-    const breeds = useSelector(selectBreeds)
+    const breeds = useSelector(selectCatBreeds)
+    const breedsLoading = useSelector(selectBreedsLoading)
     const selectedBreed = useSelector(selectSelectedBreed)
 
     const [breed, setBreed] = useState<string>(
@@ -29,21 +34,13 @@ const Breeds: FC = () => {
         setBreed(event.target.value)
     }
 
-    const [loading, setLoading] = useState<boolean>(false)
-
     useEffect(() => {
-        setLoading(true)
-        dispatch(fetchBreeds()).finally(() => {
-            setLoading(false)
-        })
+        dispatch(fetchBreeds())
     }, [dispatch])
 
     useEffect(() => {
         if (breed) {
-            setLoading(true)
-            dispatch(fetchSelectedBreed(breed)).finally(() => {
-                setLoading(false)
-            })
+            dispatch(fetchSelectedBreed(breed))
         }
     }, [dispatch, breed])
 
@@ -61,7 +58,7 @@ const Breeds: FC = () => {
             <Typography color='primary' variant='h1'>
                 There are so many wonderful breeds!
             </Typography>
-            {loading ? (
+            {breedsLoading ? (
                 <CircularProgress size={100} color='primary' />
             ) : (
                 <>

@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import { Box, Stack, Typography } from '@mui/material'
-import StarRating from 'cats/ui/StarRating'
+import StarRating from 'breeds/ui/StarRating'
 import { appTheme } from 'app/components/App'
-import { CatBreed } from 'cats/helpers/catsTypes'
+import { CatBreed } from 'breeds/helpers/breedsTypes'
 
 interface BreedItemProps {
     breed: Pick<CatBreed,

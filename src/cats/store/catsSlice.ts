@@ -3,18 +3,14 @@ import { CatsState } from 'cats/helpers/catsTypes'
 import {
     fetchCatImages,
     removeImageFromFavourites,
-    fetchFavourites,
-    fetchBreeds,
-    fetchSelectedBreed
+    fetchFavourites
 } from './catsThunks'
 
 const initialState: CatsState = {
     images: [],
     imageCount: 0,
     favourites: [],
-    favouriteCount: 0,
-    breeds: [],
-    selectedBreed: null
+    favouriteCount: 0
 }
 
 export const catsSlice = createSlice({
@@ -32,12 +28,6 @@ export const catsSlice = createSlice({
         builder.addCase(fetchFavourites.fulfilled, (state, { payload }) => {
             state.favourites = payload.favourites
             state.favouriteCount = Number(payload.favouriteCount)
-        })
-        builder.addCase(fetchBreeds.fulfilled, (state, { payload }) => {
-            state.breeds = payload
-        })
-        builder.addCase(fetchSelectedBreed.fulfilled, (state, { payload }) => {
-            state.selectedBreed = payload
         })
     }
 })
