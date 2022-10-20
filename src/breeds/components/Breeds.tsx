@@ -20,7 +20,7 @@ import {
 } from '@mui/material'
 import { SelectChangeEvent } from '@mui/material/Select'
 import BreedItem from 'breeds/ui/BreedItem'
-import MainPageButton from 'cats/ui/MainPageButton'
+import MainPageButton from 'app/ui/MainPageButton'
 import { appTheme } from 'app/components/App'
 
 const Breeds: FC = () => {

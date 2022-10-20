@@ -15,7 +15,7 @@ import {
     Typography
 } from '@mui/material'
 import CatItem from 'cats/ui/CatItem'
-import MainPageButton from 'cats/ui/MainPageButton'
+import MainPageButton from 'app/ui/MainPageButton'
 import { appTheme } from 'app/components/App'
 
 const Favourites: FC = () => {
