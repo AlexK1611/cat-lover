@@ -4,7 +4,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import CatImages from 'cats/components/CatImages'
 import Breeds from 'breeds/components/Breeds'
-import Favourites from 'cats/components/Favourites'
+import Favourites from 'favourites/components/Favourites'
 import AppBackground from 'assets/images/app-background.jpg'
 import { AppRoutes } from 'app/helpers/appTypes'
 

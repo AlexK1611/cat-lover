@@ -1,7 +1,10 @@
 import { FC, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from 'app/helpers/appTypes'
-import { saveImageAsFavourite, removeImageFromFavourites } from 'cats/store/catsThunks'
+import {
+    saveImageAsFavourite,
+    removeImageFromFavourites
+} from 'favourites/store/favouritesThunks'
 import { Box, CardMedia, CircularProgress, IconButton } from '@mui/material'
 import StarIcon from '@mui/icons-material/Star'
 import DeleteIcon from '@mui/icons-material/Delete'

@@ -1,16 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { CatsState } from 'cats/helpers/catsTypes'
-import {
-    fetchCatImages,
-    removeImageFromFavourites,
-    fetchFavourites
-} from './catsThunks'
+import { fetchCatImages } from './catsThunks'
 
 const initialState: CatsState = {
     images: [],
-    imageCount: 0,
-    favourites: [],
-    favouriteCount: 0
+    imageCount: 0
 }
 
 export const catsSlice = createSlice({
@@ -21,13 +15,6 @@ export const catsSlice = createSlice({
         builder.addCase(fetchCatImages.fulfilled, (state, { payload }) => {
             state.images = payload.images
             state.imageCount = Number(payload.imageCount)
-        })
-        builder.addCase(removeImageFromFavourites.fulfilled, (state, { payload }) => {
-            state.favourites = state.favourites.filter(item => item.id !== payload)
-        })
-        builder.addCase(fetchFavourites.fulfilled, (state, { payload }) => {
-            state.favourites = payload.favourites
-            state.favouriteCount = Number(payload.favouriteCount)
         })
     }
 })

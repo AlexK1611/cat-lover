@@ -6,23 +6,9 @@ export interface CatImage {
     width: number
 }
 
-export interface FavouriteImage {
-    created_at: string,
-    id: number,
-    image: {
-        id: string,
-        url: string
-    },
-    image_id: string,
-    sub_id: string | null,
-    user_id: string
-}
-
 export interface CatsState {
     images: CatImage[],
-    imageCount: number,
-    favourites: FavouriteImage[],
-    favouriteCount: number
+    imageCount: number
 }
 
 export enum SortingOrder {
@@ -39,14 +25,4 @@ export interface CatImagesRequest {
 export interface CatImagesResponse {
     images: CatImage[],
     imageCount?: string
-}
-
-export interface FavouritesRequest {
-    limit: number,
-    page: number
-}
-
-export interface FavouritesResponse {
-    favourites: FavouriteImage[],
-    favouriteCount?: string
 }

@@ -1,8 +1,12 @@
 import { FC, useState, useEffect, ChangeEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from 'app/helpers/appTypes'
-import { selectFavouriteCount, selectFavourites } from 'cats/store/catsSelectors'
-import { fetchFavourites } from 'cats/store/catsThunks'
+import {
+    selectFavouriteCount,
+    selectFavouriteCats,
+    selectFavouritesLoading
+} from 'favourites/store/favouritesSelectors'
+import { fetchFavourites } from 'favourites/store/favouritesThunks'
 import {
     Box,
     CircularProgress,
@@ -16,24 +20,18 @@ import { appTheme } from 'app/components/App'
 
 const Favourites: FC = () => {
     const dispatch = useDispatch<AppDispatch>()
-    const favourites = useSelector(selectFavourites)
+    const favourites = useSelector(selectFavouriteCats)
+    const favouritesLoading = useSelector(selectFavouritesLoading)
     const favouriteCount = useSelector(selectFavouriteCount)
 
     const [page, setPage] = useState<number>(1)
-    const [loading, setLoading] = useState<boolean>(false)
 
     const handlePagination = (event: ChangeEvent<unknown>, value: number) => {
         setPage(value)
     }
 
     useEffect(() => {
-        setLoading(true)
-        dispatch(fetchFavourites({
-            limit: 10,
-            page
-        })).finally(() => {
-            setLoading(false)
-        })
+        dispatch(fetchFavourites(page))
     }, [dispatch, page])
 
     return (
@@ -50,7 +48,7 @@ const Favourites: FC = () => {
             <Typography variant='h1' color='primary'>
                 You have such lovely favourites!
             </Typography>
-            {loading ? (
+            {favouritesLoading ? (
                 <CircularProgress size={100} color='primary' />
             ) : (
                 <>
