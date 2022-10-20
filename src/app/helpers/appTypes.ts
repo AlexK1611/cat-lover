@@ -6,5 +6,5 @@ export type AppDispatch = typeof store.dispatch
 export enum AppRoutes {
     Main = '/',
     Breeds = '/breeds',
-    Favourites = 'favourites'
+    Favourites = '/favourites'
 }
