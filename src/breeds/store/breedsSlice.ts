@@ -1,17 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { BreedsState } from 'breeds/helpers/breedsTypes'
-import { fetchBreeds, fetchSelectedBreed } from './breetsThunks'
+import { fetchBreeds, fetchSelectedBreed } from './breedsThunks'
 
 const initialState: BreedsState = {
     breeds: [],
     selectedBreed: null,
-    loading: false
+    loading: false,
+    breedId: ''
 }
 
 export const breedsSlice = createSlice({
     name: 'breeds',
     initialState,
-    reducers: {},
+    reducers: {
+        setBreedId: (state, action: PayloadAction<string>) => {
+            state.breedId = action.payload
+        }
+    },
     extraReducers: builder => {
         builder.addCase(fetchBreeds.pending, state => {
             state.loading = true
@@ -25,3 +30,5 @@ export const breedsSlice = createSlice({
         })
     }
 })
+
+export const { setBreedId } = breedsSlice.actions

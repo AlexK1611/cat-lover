@@ -36,5 +36,6 @@ export interface CatBreed {
 export interface BreedsState {
     breeds: CatBreed[],
     selectedBreed: CatBreed | null,
-    loading: boolean
+    loading: boolean,
+    breedId: string
 }

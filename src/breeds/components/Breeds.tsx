@@ -1,12 +1,14 @@
-import { FC, useState, useEffect } from 'react'
+import { FC, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from 'app/helpers/appTypes'
 import {
+    selectBreedId,
     selectBreedsLoading,
     selectCatBreeds,
     selectSelectedBreed
 } from 'breeds/store/breedsSelectors'
-import { fetchBreeds, fetchSelectedBreed } from 'breeds/store/breetsThunks'
+import { fetchBreeds, fetchSelectedBreed } from 'breeds/store/breedsThunks'
+import { setBreedId } from 'breeds/store/breedsSlice'
 import {
     Box,
     CircularProgress,
@@ -26,12 +28,10 @@ const Breeds: FC = () => {
     const breeds = useSelector(selectCatBreeds)
     const breedsLoading = useSelector(selectBreedsLoading)
     const selectedBreed = useSelector(selectSelectedBreed)
+    const breedId = useSelector(selectBreedId)
 
-    const [breed, setBreed] = useState<string>(
-        selectedBreed?.id ? selectedBreed.id : ''
-    )
     const handleSelectBreed = (event: SelectChangeEvent) => {
-        setBreed(event.target.value)
+        dispatch(setBreedId(event.target.value))
     }
 
     useEffect(() => {
@@ -39,10 +39,10 @@ const Breeds: FC = () => {
     }, [dispatch])
 
     useEffect(() => {
-        if (breed) {
-            dispatch(fetchSelectedBreed(breed))
+        if (breedId) {
+            dispatch(fetchSelectedBreed(breedId))
         }
-    }, [dispatch, breed])
+    }, [dispatch, breedId])
 
     return (
         <Box
@@ -70,7 +70,7 @@ const Breeds: FC = () => {
                                 boxShadow: `0px 0px 10px 10px ${appTheme.palette.primary.main}`
                             }}>
                             <InputLabel>Breed</InputLabel>
-                            <Select value={breed} label="Breed" onChange={handleSelectBreed}>
+                            <Select value={breedId} label="Breed" onChange={handleSelectBreed}>
                                 {breeds.map(catBreed => (
                                     <MenuItem key={catBreed.id} value={catBreed.id}>
                                         {catBreed.name}
