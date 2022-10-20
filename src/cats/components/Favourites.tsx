@@ -55,28 +55,28 @@ const Favourites: FC = () => {
             ) : (
                 <>
                     {favourites.length > 0 && (
-                        <Grid container spacing={3}>
-                            {favourites.map(favourite => (
-                                <Grid item xs={4} key={favourite.id}>
-                                    <CatItem
-                                        image={favourite.image.url}
-                                        imageId={favourite.id}
-                                        type='favourite'
-                                    />
-                                </Grid>
-                            ))}
-                        </Grid>
-                    )}
-                    {favourites.length > 0 && (
-                        <Pagination
-                            count={Math.ceil(favouriteCount / 10)}
-                            page={page}
-                            onChange={handlePagination}
-                            sx={{
-                                backgroundColor: appTheme.palette.primary.main,
-                                borderRadius: '25px'
-                            }}
-                        />
+                        <>
+                            <Grid container spacing={3}>
+                                {favourites.map(favourite => (
+                                    <Grid item xs={4} key={favourite.id}>
+                                        <CatItem
+                                            image={favourite.image.url}
+                                            imageId={favourite.id}
+                                            type='favourite'
+                                        />
+                                    </Grid>
+                                ))}
+                            </Grid>
+                            <Pagination
+                                count={Math.ceil(favouriteCount / 10)}
+                                page={page}
+                                onChange={handlePagination}
+                                sx={{
+                                    backgroundColor: appTheme.palette.primary.main,
+                                    borderRadius: '25px'
+                                }}
+                            />
+                        </>
                     )}
                 </>
             )}
