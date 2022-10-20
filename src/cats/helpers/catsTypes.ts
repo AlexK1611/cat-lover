@@ -75,7 +75,7 @@ export interface CatImagesRequest {
 
 export interface CatImagesResponse {
     images: CatImage[],
-    imageCount: string | undefined
+    imageCount?: string
 }
 
 export interface FavouritesRequest {
@@ -85,5 +85,5 @@ export interface FavouritesRequest {
 
 export interface FavouritesResponse {
     favourites: FavouriteImage[],
-    favouriteCount: string | undefined
+    favouriteCount?: string
 }
