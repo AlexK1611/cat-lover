@@ -8,18 +8,8 @@ export interface CatImage {
 
 export interface CatsState {
     images: CatImage[],
-    imageCount: number
-}
-
-export enum SortingOrder {
-    Asc = "asc",
-    Desc = "desc"
-}
-
-export interface CatImagesRequest {
-    limit: number,
-    page: number,
-    order: SortingOrder
+    imageCount: number,
+    loading: boolean
 }
 
 export interface CatImagesResponse {

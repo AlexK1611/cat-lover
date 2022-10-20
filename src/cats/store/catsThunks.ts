@@ -1,16 +1,16 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { CatImagesRequest, CatImagesResponse } from 'cats/helpers/catsTypes'
+import { CatImagesResponse } from 'cats/helpers/catsTypes'
 import { api } from 'config/api'
 
 export const fetchCatImages = createAsyncThunk(
     'cats/fetchImages',
-    async ({ limit, page, order }: CatImagesRequest): Promise<CatImagesResponse> => {
+    async (page: number): Promise<CatImagesResponse> => {
         try {
             const response = await api.get('images/search', {
                 params: {
-                    limit,
+                    limit: 10,
                     page: page - 1,
-                    order
+                    order: 'desc'
                 }
             })
             return {

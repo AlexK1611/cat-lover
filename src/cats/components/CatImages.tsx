@@ -2,9 +2,12 @@ import { FC, useState, useEffect, ChangeEvent } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { AppDispatch } from 'app/helpers/appTypes'
-import { selectCatImageCount, selectCatImages } from 'cats/store/catsSelectors'
+import {
+    selectCatImageCount,
+    selectCatImages,
+    selectCatsLoading
+} from 'cats/store/catsSelectors'
 import { fetchCatImages } from 'cats/store/catsThunks'
-import { SortingOrder } from 'cats/helpers/catsTypes'
 import {
     Box,
     Button,
@@ -19,24 +22,17 @@ import { appTheme } from 'app/components/App'
 const CatImages: FC = () => {
     const dispatch = useDispatch<AppDispatch>()
     const catImages = useSelector(selectCatImages)
+    const catsLoading = useSelector(selectCatsLoading)
     const catImageCount = useSelector(selectCatImageCount)
 
     const [page, setPage] = useState<number>(1)
-    const [loading, setLoading] = useState<boolean>(false)
 
     const handlePagination = (event: ChangeEvent<unknown>, value: number) => {
         setPage(value)
     }
 
     useEffect(() => {
-        setLoading(true)
-        dispatch(fetchCatImages({
-            limit: 10,
-            page,
-            order: SortingOrder.Desc
-        })).finally(() => {
-            setLoading(false)
-        })
+        dispatch(fetchCatImages(page))
     }, [dispatch, page])
 
     const navigate = useNavigate()
@@ -78,7 +74,7 @@ const CatImages: FC = () => {
                 </Button>
             </Box>
 
-            {loading ? (
+            {catsLoading ? (
                 <CircularProgress size={100} color='primary' />
             ) : (
                 <>
